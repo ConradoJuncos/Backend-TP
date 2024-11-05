@@ -1,7 +1,5 @@
 package utn.frc.backend.pruebas;
 
-import java.sql.Timestamp;
-
 //ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 //TIPO_DOCUMENTO TEXT(3) DEFAULT ('"DNI"') NOT NULL,
 //DOCUMENTO TEXT(10) NOT NULL,
@@ -11,6 +9,15 @@ import java.sql.Timestamp;
 //NRO_LICENCIA INTEGER NOT NULL,
 //FECHA_VENCIMIENTO_LICENCIA TIMESTAMP NOT NULL
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Interesado {
     private int id;
     private String tipoDocumento;

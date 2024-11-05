@@ -7,6 +7,13 @@ package utn.frc.backend.pruebas;
 //CONSTRAINT Vehiculos_Modelos_FK FOREIGN KEY (ID_MODELO) REFERENCES Modelos(ID)
 //);
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vehiculo {
     private int id;
     private String patente;

@@ -13,8 +13,15 @@ package utn.frc.backend.pruebas;
 //CONSTRAINT Pruebas_Empleados_FK FOREIGN KEY (ID_EMPLEADO) REFERENCES Empleados(LEGAJO)
 //);
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Prueba {
     private int id;
     private int idInteresado;

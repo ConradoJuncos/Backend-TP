@@ -5,6 +5,13 @@ package utn.frc.backend.pruebas;
 //NOMBRE TEXT(30) NOT NULL
 //);
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Marca {
     private int id;
     private String nombre;

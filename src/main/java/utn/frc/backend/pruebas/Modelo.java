@@ -7,6 +7,13 @@ package utn.frc.backend.pruebas;
 //CONSTRAINT Modelo_Marca_FK FOREIGN KEY (ID_MARCA) REFERENCES "Marcas"(ID)
 //);
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Modelo {
     private int id;
     private int idMarca;
