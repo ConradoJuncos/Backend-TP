@@ -23,7 +23,7 @@ public class PruebaService {
         // todo - NO CREAR LAS PRUEBAS CON SETS, SINO CON EL CONSTRUCTOR QUE LO HACE CON this.atr = ññññ
         // todo - Crear el constructor de prueba correcto, con Empleado, Interesado y Auto creo
         Prueba prueba = new Prueba();
-        prueba.setIdEmpleado(idEmpleado);
+//        prueba.setIdEmpleado(idEmpleado);
         prueba.setComentarios("Prueba asignada a: " + empleado.getNombre() + " " + empleado.getApellido());
 
         // Guardar la prueba o realizar otras operaciones

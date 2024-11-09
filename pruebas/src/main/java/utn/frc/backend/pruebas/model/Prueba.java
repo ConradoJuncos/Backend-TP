@@ -17,6 +17,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utn.frc.backend.pruebas.dto.EmpleadoDTO;
 
 import java.sql.Timestamp;
 
@@ -39,9 +40,8 @@ public class Prueba {
     @JoinColumn(name = "ID_INTERESADO", referencedColumnName = "ID", nullable = false)
     private Interesado interesado;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "LEGAJO", nullable = false)
-    private Empleado empleado;
+    @Transient
+    private EmpleadoDTO empleado;
 
     @Column(name = "FECHA_HORA_INICIO", nullable = false)
     private Timestamp fechaHoraInicio;

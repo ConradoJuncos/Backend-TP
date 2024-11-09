@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import utn.frc.backend.pruebas.dto.EmpleadoDTO;
 
+// Comunicación con el microservicio Empleados
 @Service
 public class EmpleadoService {
 
@@ -19,8 +20,8 @@ public class EmpleadoService {
         this.empleadosServiceUrl = empleadosServiceUrl;
     }
 
-    public EmpleadoDTO obtenerEmpleadoPorId(int idEmpleado) {
-        String url = empleadosServiceUrl + "/empleados/" + idEmpleado;
+    public EmpleadoDTO obtenerEmpleadoPorId(long idEmpleado) {
+        String url = empleadosServiceUrl + "/" + idEmpleado;
         return restTemplate.getForObject(url, EmpleadoDTO.class);
     }
 }

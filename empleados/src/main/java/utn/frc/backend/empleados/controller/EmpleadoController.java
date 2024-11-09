@@ -16,6 +16,8 @@ public class EmpleadoController {
         this.empleadoService = empleadoService;
     }
 
+    // Hay un error en donde java intenta transformar "crear" a un Long y falla, pero no afecta en nada
+
     @PostMapping("/crear")
     public Empleado crearEmpleado(@RequestBody Empleado empleado) {
         return empleadoService.crearEmpleado(empleado);
