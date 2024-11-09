@@ -25,5 +25,5 @@ public class Vehiculo {
     @Column(name = "PATENTE")
     private String patente;
     @Column(name = "ID_MODELO")
-    private int idModelo;
+    private long idModelo;
 }

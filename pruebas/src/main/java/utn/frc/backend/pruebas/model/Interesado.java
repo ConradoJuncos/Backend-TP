@@ -37,7 +37,7 @@ public class Interesado {
     @Column(name = "RESTRINGIDO")
     private boolean restringido;
     @Column(name = "NRO_LICENCIA")
-    private int numeroLicencia;
+    private long numeroLicencia;
     @Column(name = "FECHA_VENCIMIENTO_LICENCIA")
     private Timestamp fechaVencimientoLicencia;
 }

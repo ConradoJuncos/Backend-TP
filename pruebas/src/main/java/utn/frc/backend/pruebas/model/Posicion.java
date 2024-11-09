@@ -27,7 +27,7 @@ public class Posicion {
     @Column(name = "ID")
     private long id;
     @Column(name = "ID_VEHICULO")
-    private int idVehiculo;
+    private long idVehiculo;
     @Column(name = "FECHA_HORA")
     private Timestamp fecha;
     @Column(name = "LATITUD")

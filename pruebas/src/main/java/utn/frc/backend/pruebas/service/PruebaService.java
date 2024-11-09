@@ -3,32 +3,53 @@ package utn.frc.backend.pruebas.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.frc.backend.pruebas.dto.EmpleadoDTO;
+import utn.frc.backend.pruebas.exception.ResourceNotFoundException;
+import utn.frc.backend.pruebas.model.Interesado;
 import utn.frc.backend.pruebas.model.Prueba;
+import utn.frc.backend.pruebas.model.Vehiculo;
+import utn.frc.backend.pruebas.repository.PruebaRepository;
+
+import java.util.Optional;
 
 @Service
 public class PruebaService {
 
+    private final PruebaRepository pruebaRepository;
+    private final InteresadoService interesadoService;
+    private final VehiculoService vehiculoService;
     private final EmpleadoService empleadoService;
 
     @Autowired
-    public PruebaService(EmpleadoService empleadoService) {
+    public PruebaService(PruebaRepository pruebaRepository,
+                         InteresadoService interesadoService,
+                         VehiculoService vehiculoService,
+                         EmpleadoService empleadoService) {
+        this.pruebaRepository = pruebaRepository;
+        this.interesadoService = interesadoService;
+        this.vehiculoService = vehiculoService;
         this.empleadoService = empleadoService;
     }
 
-    public Prueba crearPruebaConEmpleado(int idEmpleado) {
+    public Prueba obtenerPruebaPorId(Long id) {
+        return pruebaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Prueba no encontrada con ID: " + id));
+    }
+
+    public Prueba crearPrueba(long idVehiculo, long idInteresado, long idEmpleado) {
+        // Obtener el Vehiculo
+        Vehiculo vehiculo = vehiculoService.obtenerVehiculoPorId(idVehiculo);
+
+        // Obtener el Interesado
+        Interesado interesado = interesadoService.obtenerInteresadoPorId(idInteresado);
+
         // Llamada al microservicio Empleados para obtener los detalles del empleado
         EmpleadoDTO empleado = empleadoService.obtenerEmpleadoPorId(idEmpleado);
+        if (empleado == null) {
+            throw new IllegalArgumentException("El empleado no existe.");
+        }
 
-        // Lógica para crear una prueba, usando el Empleado obtenido
-        // todo - NO CREAR LAS PRUEBAS CON SETS, SINO CON EL CONSTRUCTOR QUE LO HACE CON this.atr = ññññ
-        // todo - Crear el constructor de prueba correcto, con Empleado, Interesado y Auto creo
-        Prueba prueba = new Prueba();
-//        prueba.setIdEmpleado(idEmpleado);
-        prueba.setComentarios("Prueba asignada a: " + empleado.getNombre() + " " + empleado.getApellido());
+        Prueba prueba = new Prueba(vehiculo, interesado, empleado);
 
-        // Guardar la prueba o realizar otras operaciones
-        // Por ejemplo: pruebaRepository.save(prueba);
-
-        return prueba;
+        return pruebaRepository.save(prueba);
     }
 }

@@ -7,5 +7,5 @@ public class EmpleadoDTO {
     private long legajo;
     private String nombre;
     private String apellido;
-    private int telefonoContacto;
+    private long telefonoContacto;
 }

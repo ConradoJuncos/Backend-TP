@@ -18,8 +18,9 @@ public class EmpleadoService {
         this.empleadoRepository = empleadoRepository;
     }
 
-    // todo - empleadoRepository tiene un metodo existsById, pero empleado tiene legajo, no id (funcionan igual supongo)
-    // todo -
+
+    // todo - Revisar esto. En el peor caso, busca si el id ya existe, lo cual nunca pasa porque el id se gestiona automaticamente y es inutil
+
     public Empleado crearEmpleado(Empleado empleado) {
         if (empleadoRepository.existsById(empleado.getLegajo())) {
             throw new IllegalArgumentException("El empleado ya existe");

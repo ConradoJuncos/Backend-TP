@@ -51,4 +51,10 @@ public class Prueba {
 
     @Column(name = "COMENTARIOS", length = 500)
     private String comentarios;
+
+    public Prueba(Vehiculo vehiculo, Interesado interesado, EmpleadoDTO empleado) {
+        this.vehiculo = vehiculo;
+        this.interesado = interesado;
+        this.empleado = empleado;
+    }
 }

@@ -23,7 +23,7 @@ public class Modelo {
     @Column(name = "ID")
     private long id;
     @Column(name = "ID_MARCA")
-    private int idMarca;
+    private long idMarca;
     @Column(name = "DESCRIPCION")
     private String descripcion;
 }
