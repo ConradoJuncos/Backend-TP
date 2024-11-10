@@ -11,6 +11,10 @@ spring:
           uri: http://localhost:8081  # URL del servicio Pruebas
           predicates:
             - Path=/api/pruebas/**  # Rutas para el servicio Pruebas
+        - id: interesados
+          uri: http://localhost:8081  # URL del servicio Interesados (en el microservicio Pruebas)
+          predicates:
+            - Path=/api/interesados/**  # Rutas para el servicio Interesados
         - id: empleados
           uri: http://localhost:8082  # URL del servicio Empleados
           predicates:

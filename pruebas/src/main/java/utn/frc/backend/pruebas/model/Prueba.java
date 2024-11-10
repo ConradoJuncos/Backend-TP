@@ -57,4 +57,9 @@ public class Prueba {
         this.interesado = interesado;
         this.empleado = empleado;
     }
+
+    public void finalizarPrueba(String comentarios) {
+        this.fechaHoraFin = new Timestamp(System.currentTimeMillis());
+        this.comentarios = comentarios;
+    }
 }

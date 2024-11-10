@@ -1,5 +1,6 @@
 package utn.frc.backend.pruebas.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frc.backend.pruebas.dto.EmpleadoDTO;
 import utn.frc.backend.pruebas.dto.PruebaRequest;
@@ -7,6 +8,8 @@ import utn.frc.backend.pruebas.model.Prueba;
 import utn.frc.backend.pruebas.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import utn.frc.backend.pruebas.service.PruebaService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pruebas")
@@ -25,6 +28,20 @@ public class PruebaController {
     public Prueba obtenerPruebaPorId(@PathVariable Long id) {
         return pruebaService.obtenerPruebaPorId(id);
     }
+
+    @GetMapping("/en-curso")
+    public List<Prueba> obtenerPruebasEnCurso() {
+        return pruebaService.obtenerPruebasEnCurso();
+    }
+
+    @PatchMapping("/{id}/finalizar")
+    public ResponseEntity<String> finalizarPrueba(
+            @PathVariable Long id,
+            @RequestBody String comentarios) {
+        pruebaService.buscarYFinalizar(id, comentarios);
+        return ResponseEntity.ok("Prueba finalizada exitosamente.");
+    }
+
 
     @PostMapping("/crear")
     public Prueba crearPrueba(@RequestBody PruebaRequest pruebaRequest) {

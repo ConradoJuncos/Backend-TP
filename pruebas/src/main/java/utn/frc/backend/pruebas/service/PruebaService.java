@@ -9,6 +9,8 @@ import utn.frc.backend.pruebas.model.Prueba;
 import utn.frc.backend.pruebas.model.Vehiculo;
 import utn.frc.backend.pruebas.repository.PruebaRepository;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,12 +37,45 @@ public class PruebaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Prueba no encontrada con ID: " + id));
     }
 
+    public List<Prueba> obtenerPruebasEnCurso() {
+        return pruebaRepository.findByFechaHoraFinIsNull();
+    }
+
+    public boolean esVehiculoEnUso(Long vehiculoId) {
+        // Buscar pruebas activas para el vehículo
+        List<Prueba> pruebasActivas = pruebaRepository.findByVehiculoIdAndFechaHoraFinIsNull(vehiculoId);
+        return !pruebasActivas.isEmpty();
+    }
+
+    public void buscarYFinalizar(long idPrueba, String comentarios) {
+        Prueba prueba = pruebaRepository.findById(idPrueba)
+                .orElseThrow(() -> new RuntimeException("Prueba no encontrada"));
+        prueba.finalizarPrueba(comentarios);
+        pruebaRepository.save(prueba);
+    }
+
     public Prueba crearPrueba(long idVehiculo, long idInteresado, long idEmpleado) {
-        // Obtener el Vehiculo
+
+        // Validación de que el vehículo no esté en uso
+        if (esVehiculoEnUso(idVehiculo)) {
+            throw new RuntimeException("El vehículo está en uso en otra prueba");
+        }
+
+        // Obtener el Vehículo
         Vehiculo vehiculo = vehiculoService.obtenerVehiculoPorId(idVehiculo);
 
         // Obtener el Interesado
         Interesado interesado = interesadoService.obtenerInteresadoPorId(idInteresado);
+
+        // Validación de la licencia del interesado
+        if (interesado.isRestringido()) {
+            throw new RuntimeException("El interesado está restringido");
+        }
+
+        // Validación de la licencia del interesado
+        if (interesado.isVencida()) {
+            throw new RuntimeException("La licencia está vencida");
+        }
 
         // Llamada al microservicio Empleados para obtener los detalles del empleado
         EmpleadoDTO empleado = empleadoService.obtenerEmpleadoPorId(idEmpleado);

@@ -15,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -40,4 +41,10 @@ public class Interesado {
     private long numeroLicencia;
     @Column(name = "FECHA_VENCIMIENTO_LICENCIA")
     private Timestamp fechaVencimientoLicencia;
+
+    public boolean isVencida() {
+        Timestamp ahora = new Timestamp(System.currentTimeMillis());
+        return fechaVencimientoLicencia.before(ahora);
+    }
+
 }
