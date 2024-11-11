@@ -34,4 +34,15 @@ public class PosicionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/vehiculo/{idVehiculo}/ultima")
+    public ResponseEntity<Posicion> obtenerUltimaPosicion(@PathVariable long idVehiculo) {
+        Optional<Posicion> posicionOpt = posicionService.obtenerPosicionMasReciente(idVehiculo);
+
+        if (posicionOpt.isPresent()) {
+            return ResponseEntity.ok(posicionOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

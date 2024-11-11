@@ -15,16 +15,19 @@ public class PosicionService {
     private PosicionRepository posicionRepository;
 
     public Posicion crearPosicion(long idVehiculo, double latitud, double longitud) {
-        Posicion posicion = new Posicion();
-        posicion.setIdVehiculo(idVehiculo);
-        posicion.setFecha(new Timestamp(System.currentTimeMillis()));
-        posicion.setLatitud(latitud);
-        posicion.setLongitud(longitud);
+        Posicion posicion = new Posicion(idVehiculo,
+                new Timestamp(System.currentTimeMillis()),
+                latitud,
+                longitud);
 
         return posicionRepository.save(posicion);
     }
 
     public Optional<Posicion> obtenerPosicionPorId(long id) {
         return posicionRepository.findById(id);
+    }
+
+    public Optional<Posicion> obtenerPosicionMasReciente(long idVehiculo) {
+        return posicionRepository.findTopByIdVehiculoOrderByFechaDesc(idVehiculo);
     }
 }
