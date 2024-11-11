@@ -42,5 +42,9 @@ public class Posicion {
     private double longitud;
 
     public Posicion(long idVehiculo, Timestamp timestamp, double latitud, double longitud) {
+        this.idVehiculo = idVehiculo;
+        this.fecha = timestamp;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 }

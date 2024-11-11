@@ -26,4 +26,11 @@ public class InteresadoService {
     public Interesado guardarInteresado(Interesado interesado) {
         return interesadoRepository.save(interesado);
     }
+
+    public void restringirInteresado(long idInteresado) {
+        Interesado interesado = interesadoRepository.findById(idInteresado)
+                .orElseThrow(() -> new ResourceNotFoundException("El interesado no existe"));
+        interesado.setRestringido(true);
+        interesadoRepository.save(interesado);
+    }
 }

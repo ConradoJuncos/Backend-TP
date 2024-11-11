@@ -3,7 +3,9 @@ package utn.frc.backend.pruebas.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.frc.backend.pruebas.model.Posicion;
+import utn.frc.backend.pruebas.model.Prueba;
 import utn.frc.backend.pruebas.repository.PosicionRepository;
+import utn.frc.backend.pruebas.repository.PruebaRepository;
 
 import java.sql.Timestamp;
 import java.util.Optional;
@@ -13,6 +15,8 @@ public class PosicionService {
 
     @Autowired
     private PosicionRepository posicionRepository;
+    @Autowired
+    private PruebaRepository pruebaRepository;
 
     public Posicion crearPosicion(long idVehiculo, double latitud, double longitud) {
         Posicion posicion = new Posicion(idVehiculo,
@@ -30,4 +34,14 @@ public class PosicionService {
     public Optional<Posicion> obtenerPosicionMasReciente(long idVehiculo) {
         return posicionRepository.findTopByIdVehiculoOrderByFechaDesc(idVehiculo);
     }
+
+    public Optional<Long> obtenerIdInteresadoPorVehiculo(long idVehiculo) {
+        // Busca la prueba más reciente sin fecha de finalización para el vehículo dado
+        Optional<Prueba> pruebaOpt = pruebaRepository.
+                findFirstByVehiculo_IdAndFechaHoraFinIsNullOrderByFechaHoraInicioDesc(idVehiculo);
+
+        // Si existe una prueba activa, devuelve el ID del interesado asociado a esa prueba
+        return pruebaOpt.map(prueba -> prueba.getInteresado().getId());
+    }
+
 }

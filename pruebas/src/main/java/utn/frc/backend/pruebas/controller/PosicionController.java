@@ -8,6 +8,7 @@ import utn.frc.backend.pruebas.dto.CoordenadasDTO;
 import utn.frc.backend.pruebas.exception.ResourceNotFoundException;
 import utn.frc.backend.pruebas.model.Posicion;
 import utn.frc.backend.pruebas.service.GeofenceService;
+import utn.frc.backend.pruebas.service.InteresadoService;
 import utn.frc.backend.pruebas.service.PosicionService;
 
 import java.util.Optional;
@@ -20,6 +21,8 @@ public class PosicionController {
     private PosicionService posicionService;
     @Autowired
     private GeofenceService geofenceService;
+    @Autowired
+    private InteresadoService interesadoService;
 
 //  localhost:8081/api/posiciones/nueva?idVehiculo=1&latitud=42.509&longitud=1.534
     @PostMapping("/nueva")
@@ -67,13 +70,20 @@ public class PosicionController {
         boolean estaEnZonaRestringida = geofenceService.estaEnZonaRestringida(ubicacionVehiculo);
 
         if (!estaDentroDelRadio) {
-            return "El vehículo está fuera del radio permitido de la agencia.";
+            long idInteresado = posicionService.obtenerIdInteresadoPorVehiculo(idVehiculo)
+                    .orElseThrow(() -> new RuntimeException("No se encontró el interesado a restringir"));
+            interesadoService.restringirInteresado(idInteresado);
+            return "El vehículo está fuera del radio permitido de la agencia. \n" +
+                    "Se ha restringido al interesado de id " + idInteresado;
         }
 
         if (estaEnZonaRestringida) {
-            return "El vehículo se encuentra en una zona restringida.";
+            long idInteresado = posicionService.obtenerIdInteresadoPorVehiculo(idVehiculo)
+                    .orElseThrow(() -> new RuntimeException("No se encontró el interesado a restringir"));
+            interesadoService.restringirInteresado(idInteresado);
+            return "El vehículo se encuentra en una zona restringida. \n" +
+                    "Se ha restringido al interesado de id " + idInteresado;
         }
-
         return "El vehículo está dentro del radio permitido y fuera de las zonas restringidas.";
     }
 }
