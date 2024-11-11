@@ -9,11 +9,11 @@ package utn.frc.backend.pruebas.model;
 //CONSTRAINT Posiciones_Vehiculos_FK FOREIGN KEY (ID_VEHICULO) REFERENCES Vehiculos(ID)
 //);
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.sql.Timestamp;
 
 @Data
@@ -22,16 +22,22 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "Posiciones")
 public class Posicion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
-    @Column(name = "ID_VEHICULO")
+
+    @Column(name = "ID_VEHICULO", nullable = false)
     private long idVehiculo;
-    @Column(name = "FECHA_HORA")
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "FECHA_HORA", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp fecha;
-    @Column(name = "LATITUD")
+
+    @Column(name = "LATITUD", nullable = false)
     private double latitud;
-    @Column(name = "LONGITUD")
+
+    @Column(name = "LONGITUD", nullable = false)
     private double longitud;
 }

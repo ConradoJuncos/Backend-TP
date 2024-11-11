@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frc.backend.pruebas.dto.EmpleadoDTO;
 import utn.frc.backend.pruebas.dto.PruebaRequest;
+import utn.frc.backend.pruebas.dto.PruebaResponseDTO;
 import utn.frc.backend.pruebas.model.Prueba;
 import utn.frc.backend.pruebas.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,34 @@ public class PruebaController {
         this.pruebaService = pruebaService;
     }
 
+//    @GetMapping("/{id}")
+//    public Prueba obtenerPruebaPorId(@PathVariable Long id) {
+//        return pruebaService.obtenerPruebaPorId(id);
+//    }
+
     @GetMapping("/{id}")
-    public Prueba obtenerPruebaPorId(@PathVariable Long id) {
-        return pruebaService.obtenerPruebaPorId(id);
+    public ResponseEntity<PruebaResponseDTO> getPruebaById(@PathVariable long id) {
+        Prueba prueba = pruebaService.obtenerPruebaPorId(id);
+
+        if (prueba == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Obtener datos del empleado
+        EmpleadoDTO empleado = empleadoService.obtenerEmpleadoPorId(prueba.getIdEmpleado());
+
+        // Crear el DTO de respuesta
+        PruebaResponseDTO pruebaResponseDTO = new PruebaResponseDTO(
+                prueba.getId(),
+                prueba.getVehiculo(),
+                prueba.getInteresado(),
+                empleado,
+                prueba.getFechaHoraInicio(),
+                prueba.getFechaHoraFin(),
+                prueba.getComentarios()
+        );
+
+        return ResponseEntity.ok(pruebaResponseDTO);
     }
 
     @GetMapping("/en-curso")
@@ -42,7 +68,11 @@ public class PruebaController {
         return ResponseEntity.ok("Prueba finalizada exitosamente.");
     }
 
-
+//  {
+//      "idVehiculo": 2,
+//      "idInteresado": 1,
+//      "idEmpleado": 1
+//  }
     @PostMapping("/crear")
     public Prueba crearPrueba(@RequestBody PruebaRequest pruebaRequest) {
         // Llamar al servicio para crear la prueba con los datos proporcionados

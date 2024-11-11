@@ -13,6 +13,7 @@ package utn.frc.backend.pruebas.model;
 //CONSTRAINT Pruebas_Empleados_FK FOREIGN KEY (ID_EMPLEADO) REFERENCES Empleados(LEGAJO)
 //);
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,12 +41,14 @@ public class Prueba {
     @JoinColumn(name = "ID_INTERESADO", referencedColumnName = "ID", nullable = false)
     private Interesado interesado;
 
-    @Transient
-    private EmpleadoDTO empleado;
+    @Column(name = "ID_EMPLEADO", nullable = false)
+    private long idEmpleado;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "FECHA_HORA_INICIO", nullable = false)
     private Timestamp fechaHoraInicio;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "FECHA_HORA_FIN")
     private Timestamp fechaHoraFin;
 
@@ -55,7 +58,8 @@ public class Prueba {
     public Prueba(Vehiculo vehiculo, Interesado interesado, EmpleadoDTO empleado) {
         this.vehiculo = vehiculo;
         this.interesado = interesado;
-        this.empleado = empleado;
+        this.idEmpleado = empleado.getLegajo();
+        this.fechaHoraInicio = new Timestamp(System.currentTimeMillis());
     }
 
     public void finalizarPrueba(String comentarios) {

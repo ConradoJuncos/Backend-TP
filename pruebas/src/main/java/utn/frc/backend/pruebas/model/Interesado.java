@@ -9,13 +9,13 @@ package utn.frc.backend.pruebas.model;
 //NRO_LICENCIA INTEGER NOT NULL,
 //FECHA_VENCIMIENTO_LICENCIA TIMESTAMP NOT NULL
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -39,6 +39,7 @@ public class Interesado {
     private boolean restringido;
     @Column(name = "NRO_LICENCIA")
     private long numeroLicencia;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "FECHA_VENCIMIENTO_LICENCIA")
     private Timestamp fechaVencimientoLicencia;
 
