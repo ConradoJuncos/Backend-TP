@@ -26,4 +26,9 @@ public class NotificacionController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/empleado/{idEmpleado}")
+    public List<NotificacionDTO> obtenerNotificacionesPorEmpleado(@PathVariable long idEmpleado) {
+        return notificacionService.obtenerNotificacionesPorEmpleado(idEmpleado);
+    }
 }

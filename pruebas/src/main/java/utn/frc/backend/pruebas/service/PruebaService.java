@@ -12,6 +12,7 @@ import utn.frc.backend.pruebas.repository.PruebaRepository;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PruebaService {
@@ -86,5 +87,11 @@ public class PruebaService {
         Prueba prueba = new Prueba(vehiculo, interesado, empleado);
 
         return pruebaRepository.save(prueba);
+    }
+
+    public List<Prueba> obtenerPruebasPorVehiculo(long idVehiculo) {
+        return pruebaRepository.findAll().stream()
+                .filter(prueba -> prueba.getVehiculo().getId() == idVehiculo)
+                .collect(Collectors.toList());
     }
 }

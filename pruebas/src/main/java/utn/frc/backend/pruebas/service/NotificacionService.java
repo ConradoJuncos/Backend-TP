@@ -50,4 +50,11 @@ public class NotificacionService {
         );
     }
 
+    public List<NotificacionDTO> obtenerNotificacionesPorEmpleado(long idEmpleado) {
+        return notificacionRepository.findAll().stream()
+                .filter(notificacion -> notificacion.getIdEmpleado() == idEmpleado)
+                .map(this::convertirANotificacionDTO)
+                .collect(Collectors.toList());
+    }
+
 }

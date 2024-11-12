@@ -83,6 +83,12 @@ public class PruebaController {
         );
     }
 
+    // Nuevo endpoint para listar todas las pruebas de un vehículo específico
+    @GetMapping("/vehiculo/{idVehiculo}")
+    public List<Prueba> obtenerPruebasPorVehiculo(@PathVariable long idVehiculo) {
+        return pruebaService.obtenerPruebasPorVehiculo(idVehiculo);
+    }
+
 //    @GetMapping("/empleado/{id}")
 //    public EmpleadoDTO obtenerEmpleado(@PathVariable Long id) {
 //        return empleadoService.obtenerEmpleadoPorId(id);
