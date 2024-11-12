@@ -17,6 +17,8 @@ public class PosicionService {
     private PosicionRepository posicionRepository;
     @Autowired
     private PruebaRepository pruebaRepository;
+    @Autowired
+    private PruebaService pruebaService;
 
     public Posicion crearPosicion(long idVehiculo, double latitud, double longitud) {
         Posicion posicion = new Posicion(idVehiculo,
@@ -42,6 +44,16 @@ public class PosicionService {
 
         // Si existe una prueba activa, devuelve el ID del interesado asociado a esa prueba
         return pruebaOpt.map(prueba -> prueba.getInteresado().getId());
+    }
+
+    // Método para obtener el id del empleado (o el empleado) con el id del vehiculo
+    public Optional<Long> obtenerIdEmpleadoPorVehiculo(long idVehiculo) {
+        // Busca la prueba más reciente sin fecha de finalización para el vehículo dado
+        Optional<Prueba> pruebaOpt = pruebaRepository.
+                findFirstByVehiculo_IdAndFechaHoraFinIsNullOrderByFechaHoraInicioDesc(idVehiculo);
+
+        // Si existe una prueba activa, devuelve el ID del interesado asociado a esa prueba
+        return pruebaOpt.map(Prueba::getIdEmpleado);
     }
 
 }

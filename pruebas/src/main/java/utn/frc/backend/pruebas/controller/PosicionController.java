@@ -77,8 +77,10 @@ public class PosicionController {
                     .orElseThrow(() -> new RuntimeException("No se encontró el interesado a restringir"));
             interesadoService.restringirInteresado(idInteresado);
 
+            long idEmpleado = posicionService.obtenerIdEmpleadoPorVehiculo(idVehiculo)
+                    .orElseThrow(() -> new ResourceNotFoundException("No se encontró el empleado"));
 
-            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo, "Vehículo fuera del radio permitido");
+            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo);
 
 
             return "El vehículo está fuera del radio permitido de la agencia. \n" +
@@ -91,7 +93,9 @@ public class PosicionController {
             interesadoService.restringirInteresado(idInteresado);
 
 
-            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo, "Vehículo fuera del radio permitido");
+            long idEmpleado = posicionService.obtenerIdEmpleadoPorVehiculo(idVehiculo)
+                    .orElseThrow(() -> new ResourceNotFoundException("No se encontró el empleado"));
+            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo);
 
 
             return "El vehículo se encuentra en una zona restringida. \n" +

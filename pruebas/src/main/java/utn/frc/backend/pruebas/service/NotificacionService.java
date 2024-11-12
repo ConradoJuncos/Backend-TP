@@ -17,5 +17,5 @@ public class NotificacionService {
 
         notificacionRepository.save(notificacion);
     }
-    
+
 }
