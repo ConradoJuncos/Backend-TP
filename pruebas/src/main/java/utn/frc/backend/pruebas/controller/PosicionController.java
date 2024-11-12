@@ -9,6 +9,7 @@ import utn.frc.backend.pruebas.exception.ResourceNotFoundException;
 import utn.frc.backend.pruebas.model.Posicion;
 import utn.frc.backend.pruebas.service.GeofenceService;
 import utn.frc.backend.pruebas.service.InteresadoService;
+import utn.frc.backend.pruebas.service.NotificacionService;
 import utn.frc.backend.pruebas.service.PosicionService;
 
 import java.util.Optional;
@@ -23,6 +24,8 @@ public class PosicionController {
     private GeofenceService geofenceService;
     @Autowired
     private InteresadoService interesadoService;
+    @Autowired
+    private NotificacionService notificacionService;
 
 //  localhost:8081/api/posiciones/nueva?idVehiculo=1&latitud=42.509&longitud=1.534
     @PostMapping("/nueva")
@@ -73,6 +76,11 @@ public class PosicionController {
             long idInteresado = posicionService.obtenerIdInteresadoPorVehiculo(idVehiculo)
                     .orElseThrow(() -> new RuntimeException("No se encontró el interesado a restringir"));
             interesadoService.restringirInteresado(idInteresado);
+
+
+            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo, "Vehículo fuera del radio permitido");
+
+
             return "El vehículo está fuera del radio permitido de la agencia. \n" +
                     "Se ha restringido al interesado de id " + idInteresado;
         }
@@ -81,6 +89,11 @@ public class PosicionController {
             long idInteresado = posicionService.obtenerIdInteresadoPorVehiculo(idVehiculo)
                     .orElseThrow(() -> new RuntimeException("No se encontró el interesado a restringir"));
             interesadoService.restringirInteresado(idInteresado);
+
+
+            notificacionService.crearNotificacion(idEmpleado, idInteresado, idVehiculo, "Vehículo fuera del radio permitido");
+
+
             return "El vehículo se encuentra en una zona restringida. \n" +
                     "Se ha restringido al interesado de id " + idInteresado;
         }
