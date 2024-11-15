@@ -25,11 +25,6 @@ public class PruebaController {
         this.pruebaService = pruebaService;
     }
 
-//    @GetMapping("/{id}")
-//    public Prueba obtenerPruebaPorId(@PathVariable Long id) {
-//        return pruebaService.obtenerPruebaPorId(id);
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<PruebaResponseDTO> getPruebaById(@PathVariable long id) {
         Prueba prueba = pruebaService.obtenerPruebaPorId(id);
@@ -68,6 +63,7 @@ public class PruebaController {
         return ResponseEntity.ok("Prueba finalizada exitosamente.");
     }
 
+//  Ejemplo JSON
 //  {
 //      "idVehiculo": 2,
 //      "idInteresado": 1,

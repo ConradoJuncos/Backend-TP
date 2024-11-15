@@ -51,6 +51,10 @@ public class PruebaService {
     public void buscarYFinalizar(long idPrueba, String comentarios) {
         Prueba prueba = pruebaRepository.findById(idPrueba)
                 .orElseThrow(() -> new RuntimeException("Prueba no encontrada"));
+
+        if (prueba.getFechaHoraFin() != null) {
+            throw new RuntimeException("La prueba ya finalizó");
+        }
         prueba.finalizarPrueba(comentarios);
         pruebaRepository.save(prueba);
     }
