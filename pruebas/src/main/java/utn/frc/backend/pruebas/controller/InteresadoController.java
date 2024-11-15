@@ -1,9 +1,7 @@
 package utn.frc.backend.pruebas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import utn.frc.backend.pruebas.model.Interesado;
 import utn.frc.backend.pruebas.service.InteresadoService;
 
@@ -20,7 +18,16 @@ public class InteresadoController {
         this.interesadoService = interesadoService;
     }
 
-    // Endpoint para crear un nuevo interesado
+//  Endpoint para crear un nuevo interesado
+//  JSON de ejemplo
+//    {
+//        "tipoDocumento": "DNI",
+//            "documento": 32648795,
+//            "nombre": "Pedro",
+//            "apellido": "Uop",
+//            "numeroLicencia": 85648,
+//            "fechaVencimientoLicencia": "2025-12-31 23:59:59"
+//    }
     @PostMapping("/crear")
     public Interesado crearInteresado(@RequestBody Interesado interesado) {
         return interesadoService.guardarInteresado(interesado);
