@@ -1,6 +1,7 @@
 localhost:8080/api/pruebas/{id}
 localhost:8080/api/pruebas/en-curso
 localhost:8080/api/pruebas/{id}/finalizar  -  PATCH con body. En el body poner el string pelado, sin comillas
+localhost:8080/api/pruebas/crear  -  POST con body. Ejemplo en el controller
 localhost:8080/api/pruebas/vehiculo/{idVehiculo}
 
 localhost:8080/api/interesados/crear
