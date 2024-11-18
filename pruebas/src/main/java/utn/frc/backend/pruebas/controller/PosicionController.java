@@ -1,6 +1,7 @@
 package utn.frc.backend.pruebas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import utn.frc.backend.pruebas.service.InteresadoService;
 import utn.frc.backend.pruebas.service.NotificacionService;
 import utn.frc.backend.pruebas.service.PosicionService;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -102,5 +105,17 @@ public class PosicionController {
                     "Se ha restringido al interesado de id " + idInteresado;
         }
         return "El vehículo está dentro del radio permitido y fuera de las zonas restringidas.";
+    }
+
+    @GetMapping("/kilometros")
+    public double calcularKilometrosRecorridos(
+            @RequestParam long idVehiculo,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaFin) {
+
+        Timestamp inicio = Timestamp.valueOf(fechaInicio);
+        Timestamp fin = Timestamp.valueOf(fechaFin);
+
+        return posicionService.calcularKilometrosRecorridos(idVehiculo, inicio, fin);
     }
 }

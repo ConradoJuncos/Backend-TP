@@ -14,6 +14,7 @@ localhost:8080/api/posiciones/nueva  -  POST con parametros. Ejemplo en el contr
 localhost:8080/api/posiciones/{id}
 localhost:8080/api/posiciones/vehiculo/{idVehiculo}/ultima
 localhost:8080/api/posiciones/verificar/{idVehiculo}
+localhost:8080/api/posiciones/kilometros?idVehiculo=1&fechaInicio=2024-11-11T20:35:40&fechaFin=2024-11-11T22:38:40
 
 localhost:8080/api/informacion
 
