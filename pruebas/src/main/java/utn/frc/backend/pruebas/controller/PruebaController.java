@@ -70,6 +70,7 @@ public class PruebaController {
 //      "idEmpleado": 1
 //  }
     @PostMapping("/crear")
+    // Utiliza la clase PruebaRequest porque una Prueba tiene un interesado, pero al crear una prueba solo paso los id
     public Prueba crearPrueba(@RequestBody PruebaRequest pruebaRequest) {
         // Llamar al servicio para crear la prueba con los datos proporcionados
         return pruebaService.crearPrueba(
