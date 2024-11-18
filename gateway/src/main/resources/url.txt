@@ -23,7 +23,15 @@ localhost:8080/api/empleados/{id}
 localhost:8080/api/
 localhost:8080/api/
 
+
 Para modificar una prueba a mano y poner en null la fechaHoraFin
     UPDATE Pruebas
     SET FECHA_HORA_FIN = NULL
     WHERE ID = 2;
+
+
+SWAGGER
+http://localhost:8081/swagger-ui/index.html
+http://localhost:8082/swagger-ui/index.html
+http://localhost:8081/v3/api-docs
+http://localhost:8082/v3/api-docs
