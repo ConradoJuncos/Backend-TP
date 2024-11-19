@@ -90,4 +90,10 @@ public class PruebaController {
 //    public EmpleadoDTO obtenerEmpleado(@PathVariable Long id) {
 //        return empleadoService.obtenerEmpleadoPorId(id);
 //    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrarPrueba(@PathVariable Long id) {
+        pruebaService.borrarPrueba(id);
+        return ResponseEntity.ok("Prueba con ID " + id + " eliminada exitosamente.");
+    }
 }

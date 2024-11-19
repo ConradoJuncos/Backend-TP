@@ -37,4 +37,16 @@ public class EmpleadoService {
                     return new EmpleadoNotFoundException("Empleado no encontrado");
                 });
     }
+
+    public void eliminarEmpleado(long legajo) {
+        logger.info("Intentando eliminar el empleado con legajo: {}", legajo);
+
+        if (!empleadoRepository.existsById(legajo)) {
+            logger.warn("El empleado con legajo {} no existe. Lanzando excepción.", legajo);
+            throw new IllegalArgumentException("El empleado con legajo " + legajo + " no existe");
+        }
+
+        empleadoRepository.deleteById(legajo);
+        logger.info("Empleado con legajo {} eliminado exitosamente.", legajo);
+    }
 }

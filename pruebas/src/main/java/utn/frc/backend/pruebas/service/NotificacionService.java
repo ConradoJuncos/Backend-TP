@@ -57,4 +57,11 @@ public class NotificacionService {
                 .collect(Collectors.toList());
     }
 
+    public void borrarNotificacion(Long id) {
+        if (!notificacionRepository.existsById(id)) {
+            throw new IllegalArgumentException("Notificación con ID " + id + " no existe");
+        }
+        notificacionRepository.deleteById(id);
+    }
+
 }

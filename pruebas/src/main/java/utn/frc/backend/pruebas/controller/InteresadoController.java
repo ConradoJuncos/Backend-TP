@@ -1,6 +1,7 @@
 package utn.frc.backend.pruebas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frc.backend.pruebas.model.Interesado;
 import utn.frc.backend.pruebas.service.InteresadoService;
@@ -37,5 +38,11 @@ public class InteresadoController {
     @GetMapping("/{id}")
     public Interesado obtenerInteresadoPorId(@PathVariable Long id) {
         return interesadoService.obtenerInteresadoPorId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrarInteresado(@PathVariable Long id) {
+        interesadoService.borrarInteresado(id);
+        return ResponseEntity.ok("Interesado con ID " + id + " eliminado exitosamente.");
     }
 }

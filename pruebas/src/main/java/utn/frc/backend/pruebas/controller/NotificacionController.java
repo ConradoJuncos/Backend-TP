@@ -31,4 +31,10 @@ public class NotificacionController {
     public List<NotificacionDTO> obtenerNotificacionesPorEmpleado(@PathVariable long idEmpleado) {
         return notificacionService.obtenerNotificacionesPorEmpleado(idEmpleado);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrarNotificacion(@PathVariable Long id) {
+        notificacionService.borrarNotificacion(id);
+        return ResponseEntity.ok("Notificación con ID " + id + " eliminada exitosamente.");
+    }
 }

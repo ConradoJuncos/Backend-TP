@@ -104,4 +104,10 @@ public class PosicionService {
         return RADIO_TIERRA_KM * c;
     }
 
+    public void borrarPosicion(Long id) {
+        if (!posicionRepository.existsById(id)) {
+            throw new IllegalArgumentException("Posición con ID " + id + " no existe");
+        }
+        posicionRepository.deleteById(id);
+    }
 }

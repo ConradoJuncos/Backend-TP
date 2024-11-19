@@ -26,4 +26,11 @@ public class VehiculoService {
     public Vehiculo guardarVehiculo(Vehiculo vehiculo) {
         return vehiculoRepository.save(vehiculo);
     }
+
+    public void borrarVehiculo(Long id) {
+        if (!vehiculoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Vehículo con ID " + id + " no existe");
+        }
+        vehiculoRepository.deleteById(id);
+    }
 }

@@ -98,4 +98,11 @@ public class PruebaService {
                 .filter(prueba -> prueba.getVehiculo().getId() == idVehiculo)
                 .collect(Collectors.toList());
     }
+
+    public void borrarPrueba(Long id) {
+        if (!pruebaRepository.existsById(id)) {
+            throw new IllegalArgumentException("Prueba con ID " + id + " no existe");
+        }
+        pruebaRepository.deleteById(id);
+    }
 }

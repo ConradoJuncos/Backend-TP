@@ -1,5 +1,6 @@
 package utn.frc.backend.empleados.controller;
 
+import org.springframework.http.ResponseEntity;
 import utn.frc.backend.empleados.service.EmpleadoService;
 import utn.frc.backend.empleados.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class EmpleadoController {
     @GetMapping("/{id}")
     public Empleado obtenerEmpleadoPorId(@PathVariable Long id) {
         return empleadoService.obtenerEmpleadoPorId(id);
+    }
+
+    @DeleteMapping("/borrar/{legajo}")
+    public ResponseEntity<String> eliminarEmpleado(@PathVariable long legajo) {
+        empleadoService.eliminarEmpleado(legajo);
+        return ResponseEntity.ok("Empleado con legajo " + legajo + " eliminado exitosamente.");
     }
 }

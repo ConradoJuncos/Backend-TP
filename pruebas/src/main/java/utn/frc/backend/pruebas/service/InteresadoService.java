@@ -6,6 +6,7 @@ import utn.frc.backend.pruebas.exception.ResourceNotFoundException;
 import utn.frc.backend.pruebas.model.Interesado;
 import utn.frc.backend.pruebas.repository.InteresadoRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,10 @@ public class InteresadoService {
                 .orElseThrow(() -> new ResourceNotFoundException("El interesado no existe"));
     }
 
+    public List<Interesado> obtenerTodosLosInteresados() {
+        return interesadoRepository.findAll();
+    }
+
     public Interesado guardarInteresado(Interesado interesado) {
         return interesadoRepository.save(interesado);
     }
@@ -32,5 +37,12 @@ public class InteresadoService {
                 .orElseThrow(() -> new ResourceNotFoundException("El interesado no existe"));
         interesado.setRestringido(true);
         interesadoRepository.save(interesado);
+    }
+
+    public void borrarInteresado(Long id) {
+        if (!interesadoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Interesado con ID " + id + " no existe");
+        }
+        interesadoRepository.deleteById(id);
     }
 }

@@ -118,4 +118,10 @@ public class PosicionController {
 
         return posicionService.calcularKilometrosRecorridos(idVehiculo, inicio, fin);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> borrarPosicion(@PathVariable Long id) {
+        posicionService.borrarPosicion(id);
+        return ResponseEntity.ok("Posición con ID " + id + " eliminada exitosamente.");
+    }
 }
