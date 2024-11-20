@@ -2,11 +2,11 @@ package utn.frc.backend.pruebas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import utn.frc.backend.pruebas.model.Marca;
 import utn.frc.backend.pruebas.service.MarcaService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/marcas")
@@ -17,6 +17,16 @@ public class MarcaController {
     @Autowired
     public MarcaController(MarcaService marcaService) {
         this.marcaService = marcaService;
+    }
+
+    @GetMapping("/{id}")
+    public Marca obtenerMarcaPorId(@PathVariable Long id) {
+        return marcaService.obtenerMarcaPorId(id);
+    }
+
+    @GetMapping
+    public List<Marca> obtenerTodasLasMarcas() {
+        return marcaService.obtenerTodasLasMarcas();
     }
 
     @DeleteMapping("/{id}")

@@ -2,11 +2,11 @@ package utn.frc.backend.pruebas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import utn.frc.backend.pruebas.model.Modelo;
 import utn.frc.backend.pruebas.service.ModeloService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/modelos")
@@ -17,6 +17,16 @@ public class ModeloController {
     @Autowired
     public ModeloController(ModeloService modeloService) {
         this.modeloService = modeloService;
+    }
+
+    @GetMapping("/{id}")
+    public Modelo obtenerModeloPorId(@PathVariable Long id) {
+        return modeloService.obtenerModeloPorId(id);
+    }
+
+    @GetMapping
+    public List<Modelo> obtenerTodosLosModelos() {
+        return modeloService.obtenerTodosLosModelos();
     }
 
     @DeleteMapping("/{id}")

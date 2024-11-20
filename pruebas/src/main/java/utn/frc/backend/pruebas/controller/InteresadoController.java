@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import utn.frc.backend.pruebas.model.Interesado;
 import utn.frc.backend.pruebas.service.InteresadoService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,6 +39,11 @@ public class InteresadoController {
     @GetMapping("/{id}")
     public Interesado obtenerInteresadoPorId(@PathVariable Long id) {
         return interesadoService.obtenerInteresadoPorId(id);
+    }
+
+    @GetMapping
+    public List<Interesado> obtenerTodosLosInteresados() {
+        return interesadoService.obtenerTodosLosInteresados();
     }
 
     @DeleteMapping("/{id}")
