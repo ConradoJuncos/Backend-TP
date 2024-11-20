@@ -6,6 +6,11 @@ localhost:8080/api/pruebas/vehiculo/{idVehiculo}
 
 localhost:8080/api/interesados/crear
 localhost:8080/api/interesados/{id}
+localhost:8080/api/interesados
+
+localhost:8080/api/marcas
+
+localhost:8080/api/modelos
 
 localhost:8080/api/notificaciones/{id}
 localhost:8080/api/notificaciones/empleado/{idEmpleado}
@@ -20,9 +25,6 @@ localhost:8080/api/informacion
 
 localhost:8080/api/empleados/crear  -  POST con body.
 localhost:8080/api/empleados/{id}
-
-localhost:8080/api/
-localhost:8080/api/
 
 
 Para modificar una prueba a mano y poner en null la fechaHoraFin

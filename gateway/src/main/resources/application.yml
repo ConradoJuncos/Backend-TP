@@ -24,6 +24,16 @@ spring:
           predicates:
             - Path=/api/interesados/**  # Rutas para el servicio Interesados
 
+        - id: marcas
+          uri: http://localhost:8081  # URL del servicio Interesados (en el microservicio Pruebas)
+          predicates:
+            - Path=/api/marcas/**  # Rutas para el servicio Interesados
+
+        - id: modelos
+          uri: http://localhost:8081  # URL del servicio Interesados (en el microservicio Pruebas)
+          predicates:
+            - Path=/api/modelos/**  # Rutas para el servicio Interesados
+
         - id: notificaciones
           uri: http://localhost:8081  # URL del servicio Notificaciones (en el microservicio Pruebas)
           predicates:
